@@ -1,0 +1,9 @@
+[package]
+name = "converter"
+version = "0.1.0"
+edition = "2021"
+authors=["Ezra Maxime Engels"]
+
+[dependencies]
+
+csv = "1.1"
