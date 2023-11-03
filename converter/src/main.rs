@@ -1,32 +1,20 @@
 use std::{
-    env,
+    io,
     error::Error,
-    ffi::OsString,
-    fs::File,
+    collections::HashMap,
     process,
 };
 
+type Record = HashMap<String, String>;
+
 fn run() -> Result<(), Box<dyn Error>> {
-    let file_path = get_first_arg()?;
-    let file = File::open(file_path)?;
-    let mut rdr = csv::ReaderBuilder::new()
-        .from_reader(file);
-    {
-        let headers = rdr.headers()?;
-        println!("{:?}", headers);
-    }
-    for result in rdr.records() {
-        let record = result?;
+    let mut rdr = csv::Reader::from_reader(io::stdin());
+    for result in rdr.deserialize() {
+        let record: Record = result?;
         println!("{:?}", record);
     }
-    Ok(())
-}
 
-fn get_first_arg() -> Result<OsString, Box<dyn Error>> {
-    match env::args_os().nth(1) {
-        None => Err(From::from("expected 1 argument, but got none")),
-        Some(file_path) => Ok(file_path),
-    }
+    Ok(())
 }
 
 fn main() {
