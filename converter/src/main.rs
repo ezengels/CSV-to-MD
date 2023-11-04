@@ -1,4 +1,4 @@
-use std::{error::Error, fs::File, io, process,};
+use std::{error::Error, fs::File, io, io::prelude::*, process,};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -21,7 +21,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut rdr = csv::Reader::from_reader(io::stdin());
     for result in rdr.deserialize() {
         let record: Record = result?;
-        let mut file = File::create("text.md");
+        let mut file = File::create("foo.md")?;
         println!("{:?}", record);
     }
     Ok(())
