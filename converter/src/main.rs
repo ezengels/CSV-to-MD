@@ -21,9 +21,8 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut rdr = csv::Reader::from_reader(io::stdin());
     for result in rdr.deserialize() {
         let record: Record = result?;
-            println!("{:?}", record.id)
-       // let itemid = Record::id.to_string()
-       // let mut file = File::create(itemid + ".md")?;
+        let itemid = record.id;
+        let mut file = File::create("output/".to_owned() + &itemid + ".md")?;
     }
     Ok(())
 }
