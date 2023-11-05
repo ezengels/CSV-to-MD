@@ -1,4 +1,4 @@
-use std::{error::Error, fs::File, io, io::prelude::*, process,};
+use std::{error::Error, fmt::Display, fs::File, io, io::prelude::*, process,};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -23,6 +23,11 @@ fn run() -> Result<(), Box<dyn Error>> {
         let record: Record = result?;
         let itemid = record.id;
         let mut file = File::create("output/".to_owned() + &itemid + ".md")?;
+        // impl fmt::Display for record {
+            // fn fmt(&sef, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+               // write(f, "({}, {})", self.layout, self.format)
+           // }
+       // }
     }
     Ok(())
 }
