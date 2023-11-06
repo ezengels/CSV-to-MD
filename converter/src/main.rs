@@ -22,14 +22,17 @@ fn run() -> Result<(), Box<dyn Error>> {
     for result in rdr.deserialize() {
         let record: Record = result?;
         let itemid = record.id;
-        let mut file = File::create("output/".to_owned() + &itemid + ".md")?;
+        let file = File::create("output/".to_owned() + &itemid + ".md")?;
+
         impl fmt::Display for Record {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-               write!(f, "({}, {})", self.layout, self.format)
+               write!(f, "({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})", 
+               self.id, self.layout, self.format, self.title, self.group, self.creator, self.creationdate, self.shortdesc, self.copyright, self.teammember, self.contributor)
             }
         }
-        let origin = Record { layout: "".to_owned(), format: "".to_owned()};
-        println!("{}", origin)
+        let origin = Record { id: "".to_owned(), layout: "".to_owned(), format: "".to_owned(), title: "".to_owned(), 
+        group: "".to_owned(), creator: "".to_owned(), creationdate: "".to_owned(), shortdesc: "".to_owned(), copyright: "".to_owned(), teammember: "".to_owned(), contributor: "".to_owned(),};
+        println!("{:?}", origin)
     }
     Ok(())
 }
