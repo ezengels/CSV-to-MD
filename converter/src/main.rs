@@ -22,9 +22,9 @@ fn run() -> Result<(), Box<dyn Error>> {
     for result in rdr.deserialize() {
         let record: Record = result?;
         let itemid = record.id;
-        let content = "{}".to_string("{}", record.layout + "\n" + &record.format);
-        let file = File::create("output/".to_owned() + &itemid + ".md")?;
-        file.write(content);
+        let content = "{}".to_string();
+        let mut file = File::create("output/".to_owned() + &itemid + ".md")?;
+        write!(file, "{}", content);
 
        // impl fmt::Display for Record {
        //     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
