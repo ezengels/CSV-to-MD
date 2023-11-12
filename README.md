@@ -1,2 +1,4 @@
 # CSV-to-MD
-Rust script to convert CSV rows to usable markdown files for Jekyll
+Rust script to convert CSV rows to markdown files usable for Jekyll items.
+
+As of now, it is designed exclusively for the Dublin Core derived metadata schema of uniformhistories.us. 

@@ -23,7 +23,10 @@ fn run() -> Result<(), Box<dyn Error>> {
         let record: Record = result?;
         let itemid = record.id;
         let mut file = File::create("output/".to_owned() + &itemid + ".md")?;
-        write!(file, "{}, {}, {}, {}, {}, {}, {}, {}, {}, {}", record.layout, record.format, record.title, record.group, record.creator, record.creationdate, record.shortdesc, record.copyright, record.teammember, record.contributor);
+        write!(file, "---\nlayout:{}\n format:{}\n title:{}\n group:{}\n creator:{}\n creationdate:{}\n shortdesc:{}\n copyright:{}\n teammember:{}\n contributor:{}\n---",
+        record.layout, record.format, record.title, record.group, record.creator, 
+        record.creationdate, record.shortdesc, record.copyright, record.teammember, 
+        record.contributor).ok();
     }
     Ok(())
 }
