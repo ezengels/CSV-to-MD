@@ -4,17 +4,11 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 #[serde()]
 struct Record {
-    id: String,
-    layout: String,
-    format: String,
-    title: String,
-    group: String,
-    creator: String,
-    creationdate: String,
-    shortdesc: String,
-    copyright: String,
-    teammember: String,
-    contributor: String,
+    id: String,layout: String, format: String, title: String,
+    contributor: String, group: String, creator: String, creationdate: String,
+    shortdesc: String, copyright: String, categories: String,
+    medium: String, demographic: String, time: String,
+    tags: String, teammember: String,
 }
 
 fn run() -> Result<(), Box<dyn Error>> {
@@ -23,10 +17,11 @@ fn run() -> Result<(), Box<dyn Error>> {
         let record: Record = result?;
         let itemid = record.id;
         let mut file = File::create("output/".to_owned() + &itemid + ".md")?;
-        write!(file, "---\nlayout:{}\n format:{}\n title:{}\n group:{}\n creator:{}\n creationdate:{}\n shortdesc:{}\n copyright:{}\n teammember:{}\n contributor:{}\n---",
+        write!(file, "---\nlayout:{}\nformat:\"{}\"\ntitle:\"{}\"\ncontributor:\"{}\"\ngroup:{}\ncreator:\"{}\"\ncreationdate:\"{}\"\n shortdesc:\"{}\"\n copyright:\"{}\"\nteammember:{}\ncategories:{}\nmedium:{}\ndemographic:{}\ntime:{}\ntags:{}\nteammember:{}\n---",
         record.layout, record.format, record.title, record.group, record.creator, 
         record.creationdate, record.shortdesc, record.copyright, record.teammember, 
-        record.contributor).ok();
+        record.contributor, record.categories, record.medium, record.demographic,
+        record.time, record.tags, record.teammember).ok();
     }
     Ok(())
 }
